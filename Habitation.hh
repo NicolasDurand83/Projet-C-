@@ -5,20 +5,25 @@
 #include <vector>
 
 #include "Batiment.hh"
-#include <string.h>
+
 
 
 class Habitation :public Batiment{
     public:
         Habitation();
-        Habitation(int nb_habitant,int dechet):Batiment(){}
-        
+        Habitation(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int nb_habitant,int dechet):
+                _nb_habitant(nb_habitant),_dechet(dechet)
+                {_x=x;
+                _y=y;
+                _longueur=longueur;
+                _largeur=largeur;
+                _conso_elect=conso_elec;
+                _pollution=pollution;
+                _image=image;
+                _nb_habitant=nb_habitant;
+                _dechet=dechet;       };
         ~Habitation();
-        std::string info(){
-            std::string s="";
-            s=s+ "Longueur :" + to_string()
-            
-        }
+        std::string info(){}
 
 
     private:
