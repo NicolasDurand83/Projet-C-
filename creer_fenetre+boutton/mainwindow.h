@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <qpushbutton.h>
+#include<custombutton.h>
+#include<QVBoxLayout>
+#include<QHBoxLayout>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -14,9 +17,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+private slots:
+    void DireBonjour(bool b);
 
 private:
     Ui::MainWindow *ui;
-    QPushButton* m_btnBonjour;
+    CustomButton* m_customBtnBonjour;
+    QVBoxLayout* m_vLayout;
+    QHBoxLayout* m_hLayout;
+    QList<CustomButton *> m_listBtn;
+    QWidget* m_mainWidget;
 };
 #endif // MAINWINDOW_H
