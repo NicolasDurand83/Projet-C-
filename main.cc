@@ -11,4 +11,13 @@ void test_batiment(){
 int main(){
     test_batiment();
     return 1;
+    ville.get_name();
+    get_name(ville);
+    int main(){
+    ville v("newville");
+    std::cout<<ville.get_name()<<std::endl;
+    std::cout<<ville.check_electricite()<<std::endl;
+
+
+}
 }
