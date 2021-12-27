@@ -18,10 +18,16 @@ class Batiment_production: public Batiment{
                 _conso_elect=conso_elec;
                 _pollution=pollution;
                 _image=image;
+                _production=production_max*(nb_ouvrier/ouvrier_max);
                 };
         ~Batiment_production();
+        int get_ouvrier_max(){return _ouvrier_max;};
+        int get_ouvrier(){return _nb_ouvrier;};
+        int get_production(){return _production;};
+        int get_production_max(){return _production_max;};
     private:
         int _ouvrier_max;
         int _nb_ouvrier;
         int _production_max;
+        int _production;
 };

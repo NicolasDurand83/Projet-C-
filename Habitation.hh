@@ -23,9 +23,10 @@ class Habitation :public Batiment{
                 _nb_habitant=nb_habitant;
                 _dechet=dechet;       };
         ~Habitation();
-        std::string info(){}
-
-
+        std::string info(){};
+        int get_hab(){return _nb_habitant;};
+        int get_dechet(){return _dechet};
+        
     private:
         int _nb_habitant;
         int _dechet;
