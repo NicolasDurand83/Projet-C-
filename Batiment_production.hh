@@ -1,5 +1,5 @@
 #pragma once
-#include <stdlib>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -25,7 +25,7 @@ class Batiment_production: public Batiment{
         int get_ouvrier(){return _nb_ouvrier;};
         int get_production(){return _production;};
         int get_production_max(){return _production_max;};
-    private:
+    protected:
         int _ouvrier_max;
         int _nb_ouvrier;
         int _production_max;

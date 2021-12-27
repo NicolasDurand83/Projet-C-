@@ -5,10 +5,3 @@
 
 #include "Batiment.hh"
 
-Batiment::~Batiment(){
-    //definir si on a besoin
-}
-
-Batiment::Batiment(){
-    //definir si on  a besoin
-}

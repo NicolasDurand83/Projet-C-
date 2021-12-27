@@ -23,17 +23,20 @@ class Production_argent: public Batiment_production{
         ~Production_argent();
         std::string info(){
             std::string s="";
-            s=s+ "Longueur :" + std::to_string(H.get_longeur()) + "\0";
-            s=s+ "Largeur :" + std::to_string(H.get_largeur()) + "\0";
-            s=s+ "Prix :" + std::to_string(H.get_prix()) + "\0";
-            s=s+ "Consomation électrique :" + std::to_string(H.get_conso_elec()) + "\0";
-            s=s+ "Pollution :" + std::to_string(H.get_pollution()) + "\0";
-            s=s+ "Argent produit:" + std::to_string(H.get_prodduction()) + "\0";
-            s=s+ "Argent produit max :" + std::to_string(H.get_production_max()) + "\0";
-            s=s+ "Nombre Ouvrier :" + std::to_string(H.get_ouvrier()) + "\0";
-            s=s+ "Ouvrier max :" + std::to_string(H.get_ouvrier_max()) + "\0";
+            s=s+ "Longueur :" + std::to_string(get_longeur()) + "\0";
+            s=s+ "Largeur :" + std::to_string(get_largeur()) + "\0";
+            s=s+ "Prix :" + std::to_string(get_prix()) + "\0";
+            s=s+ "Consomation électrique :" + std::to_string(get_conso_elec()) + "\0";
+            s=s+ "Pollution :" + std::to_string(get_pollution()) + "\0";
+            s=s+ "Argent produit:" + std::to_string(get_production()) + "\0";
+            s=s+ "Argent produit max :" + std::to_string(get_production_max()) + "\0";
+            s=s+ "Nombre Ouvrier :" + std::to_string(get_ouvrier()) + "\0";
+            s=s+ "Ouvrier max :" + std::to_string(get_ouvrier_max()) + "\0";
             return s;
         }
     private:
-    
+           int _ouvrier_max;
+        int _nb_ouvrier;
+        int _production_max;
+        int _production;
 };

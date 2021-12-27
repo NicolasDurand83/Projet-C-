@@ -1,4 +1,4 @@
-#include <stdlib>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -9,7 +9,7 @@ std::string check_pollution(){
     int pol=0;
     int i;
     for (i=0;i<_batiments.size();i++){
-        pol=pol + this->_batiments[i].get_pollution();
+        pol=pol + _batiments[i].get_pollution();
     };
     _pollution=pol;
     if (pol>_limite_pollution){
@@ -24,9 +24,9 @@ std::string check_electricite(){
     int elec=0;
     int i;
     for (i=0;i<_batiments.size();i++){
-        elec=elec - this->_batiments[i].get_conso_elec();
+        elec=elec - _batiments[i].get_conso_elec();
         if (typeof(_batiment[i])==Production_electricite){
-            elec=elec + this->_batiments[i].get_production();
+            elec=elec + _batiments[i].get_production();
         }
     };
     _solde_electricite=elec;

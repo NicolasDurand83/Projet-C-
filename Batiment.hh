@@ -1,5 +1,5 @@
 #pragma once
-#include <stdlib>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -12,7 +12,6 @@ class Batiment{
                 _prix(prix),_conso_elect(conso_elec),_image(image),_id(unique_id++)
                 {};
 
-        ~Batiment();
         int get_x(){return _x;}
         int get_y(){return _y;}
 
