@@ -8,8 +8,8 @@
 
 class Batiment_production: public Batiment{
     public:
-        Batiment_production();
-        Batiment_production(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max):
+        Batiment_production(){_x=5;};
+       /* Batiment_production(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max):
                 _ouvrier_max(ouvrier_max),_nb_ouvrier(nb_ouvrier),_production_max(production_max)
                 {_x=x;
                 _y=y;
@@ -20,7 +20,7 @@ class Batiment_production: public Batiment{
                 _image=image;
                 _production=production_max*(nb_ouvrier/ouvrier_max);
                 };
-        ~Batiment_production();
+        ~Batiment_production();*/
         int get_ouvrier_max(){return _ouvrier_max;};
         int get_ouvrier(){return _nb_ouvrier;};
         int get_production(){return _production;};

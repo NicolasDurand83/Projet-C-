@@ -8,19 +8,23 @@
 
 class Production_argent: public Batiment_production{
     public:
-        Production_argent();
-        Production_argent(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max):
-                _ouvrier_max(ouvrier_max),_nb_ouvrier(nb_ouvrier),_production_max(production_max)
-                {_x=x;
+        Production_argent(){_x=5;};
+        Production_argent(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max){
+                _production_max=production_max;
+                _ouvrier_max=ouvrier_max;
+                _nb_ouvrier=nb_ouvrier;
+                _x=x;
                 _y=y;
+                _prix=prix;
                 _longueur=longueur;
                 _largeur=largeur;
                 _conso_elect=conso_elec;
                 _pollution=pollution;
                 _image=image;
                 _production=production_max*(nb_ouvrier/ouvrier_max);
+               std::cout<<_ouvrier_max<<"nnnnnn\n"<<std::endl;
                 };
-        ~Production_argent();
+        //~Production_argent();
         std::string info(){
             std::string s="";
             s=s+ "Longueur :" + std::to_string(get_longeur()) + "\0";
@@ -35,8 +39,8 @@ class Production_argent: public Batiment_production{
             return s;
         }
     private:
-           int _ouvrier_max;
+        /*   int _ouvrier_max;
         int _nb_ouvrier;
         int _production_max;
-        int _production;
+        int _production;*/
 };
