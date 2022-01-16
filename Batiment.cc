@@ -5,3 +5,5 @@
 
 #include "Batiment.hh"
 
+
+Batiment::Batiment(){}
