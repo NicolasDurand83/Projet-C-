@@ -8,7 +8,7 @@
 std::string Ville::check_pollution(){
     int pol=0;
     int i;
-    for (i=0;i<_batiments.size();i++){
+    for (i=0;i<(int)_batiments.size();i++){
         pol=pol + _batiments[i].get_pollution();
     };
     _pollution=pol;
@@ -23,7 +23,7 @@ std::string Ville::check_pollution(){
 std::string Ville::check_electricite(){
     int elec=0;
     int i;
-    for (i=0;i<_batiments.size();i++){
+    for (i=0;i<(int)_batiments.size();i++){
         elec=elec - _batiments[i].get_conso_elec();
         if (typeid(_batiments[i])==typeid(Production_electricite)){
             elec=elec + _batiments[i].get_production();
@@ -39,10 +39,10 @@ std::string Ville::check_electricite(){
     }
 }
 
-std::string Ville::check_electricite(){
+std::string Ville::check_dechet(){
     int solde_dechet=0;
     int i;
-    for (i=0;i<_batiments.size();i++){
+    for (i=0;i<(int)_batiments.size();i++){
         if (typeid(_batiments[i])==typeid(Gestion_dechet)){
             solde_dechet=solde_dechet + _batiments[i].get_production();
         }
@@ -63,7 +63,7 @@ std::string Ville::check_electricite(){
 int Ville::get_revenue(){
     int cash=0;
     int i;
-    for (i=0;i<_batiments.size();i++){
+    for (i=0;i<(int)_batiments.size();i++){
         if (typeid(_batiments[i])==typeid(Production_argent)){
             cash=cash + _batiments[i].get_production();
         }
@@ -74,7 +74,7 @@ template<typename T>
 std::string Ville::create_batiment(T& B, int x, int y){
     int i;
     B.set_x(x);B.set_y(y);
-    if (B.get_prix()>this._argent){
+    if (B.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
     for (i=0;i<_batiments.size();i++){
@@ -88,22 +88,30 @@ std::string Ville::create_batiment(T& B, int x, int y){
     
 }
 
+void Ville::erase(int i){
+    int j;
+    for (j=i;j<(int)_batiments.size()-1;j++){
+        _batiments[j]=_batiments[i+1];
+    }
+    _batiments.pop_back();
+}
 
 std::string Ville::delete_batiment(int x, int y){
     int i;
     int tempx,tempy,templong,templarg;
-    for (i=0;(this->_batiments).size();i++){
-        tempx=(this->_batiments[i]).get_x();
-        tempy=(this->_batiments[i]).get_y();
-        templong=(this->_batiments[i]).get_longueur();
-        templarg=(this->_batiments[i]).get_largeur();
+    for (i=0;(int)_batiments.size();i++){
+        tempx=_batiments[i].get_x();
+        tempy=_batiments[i].get_y();
+        templong=_batiments[i].get_longueur();
+        templarg=_batiments[i].get_largeur();
         if (tempx>=x && tempy>=y && x<=tempx+templong && y<=tempy +templarg){
-            (this->_batiments).erase(i);
+            erase(i);
             return "Batiment supprimé";
         }
     }
     return "Il n'y a pas de batiment ici";
 }
+
 
 void Ville::update(){
     this->check_pollution();

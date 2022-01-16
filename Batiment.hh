@@ -13,6 +13,7 @@ class Batiment{
         void set_x(int x){_x=x;}
         void set_y(int y){_y=y;}
         int get_longueur(){return _longueur;}
+        int get_longeur(){return _longueur;}
         int get_largeur(){return _largeur;}
         int get_prix(){return _prix;}
         int get_conso_elec(){return _conso_elect;}

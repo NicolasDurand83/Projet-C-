@@ -28,6 +28,7 @@ class Ville{
         template<typename T>
         std::string create_batiment(T& B, int x, int y);
         std::string delete_batiment(int x, int y);
+        void erase(int i);
         void update();
 
 

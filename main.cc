@@ -5,8 +5,8 @@
 #include "Production_argent.hh"
 #include "Production_electricite.hh"
 #include "Gestion_dechet.hh"
-#include "ville.hh"
-
+#include "Ville.hh"
+/*
 void test1(){
     int x=1;
     int y=3;
@@ -68,11 +68,11 @@ void test4(){
      Gestion_dechet a(x,y,longueur,largeur,prix,conso_elec,pollution,image,ouvrier_max,nb_ouvrier,production_max);
      std::cout<<a.info()<<std::endl;
      
-}
+}*/
 int main(){
     //Ville v("villeecccccoooo",100000,100);
     Ville v;
     Ville v2("firas",10,100);
-    test4();      
+    //test4();      
     return 1;
 }

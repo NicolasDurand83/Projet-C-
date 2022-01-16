@@ -8,7 +8,7 @@
 
 class Production_argent: public Batiment_production{
     public:
-        Production_argent(){_x=5;};
+
         Production_argent(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max){
                 _production_max=production_max;
                 _ouvrier_max=ouvrier_max;
@@ -27,7 +27,7 @@ class Production_argent: public Batiment_production{
         //~Production_argent();
         std::string info(){
             std::string s="";
-            s=s+ "Longueur :" + std::to_string(get_longueur()) + "\0";
+            s=s+ "Longueur :" + std::to_string(get_longeur()) + "\0";
             s=s+ "Largeur :" + std::to_string(get_largeur()) + "\0";
             s=s+ "Prix :" + std::to_string(get_prix()) + "\0";
             s=s+ "Consomation électrique :" + std::to_string(get_conso_elec()) + "\0";

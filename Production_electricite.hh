@@ -8,7 +8,7 @@
 
 class Production_electricite: public Batiment_production{
     public:
-        Production_electricite(){};
+
         Production_electricite(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max){
                 _ouvrier_max=ouvrier_max;
                 _nb_ouvrier=nb_ouvrier;
