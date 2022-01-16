@@ -8,7 +8,7 @@
 
 class Gestion_dechet: public Batiment_production{
     public:
-        Gestion_dechet(){_x=5;};
+        Gestion_dechet(){};
         Gestion_dechet(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int ouvrier_max,int nb_ouvrier,int production_max){
                 _production_max=production_max;
                 _ouvrier_max=ouvrier_max;

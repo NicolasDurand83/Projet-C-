@@ -27,7 +27,7 @@ class Production_argent: public Batiment_production{
         //~Production_argent();
         std::string info(){
             std::string s="";
-            s=s+ "Longueur :" + std::to_string(get_longeur()) + "\0";
+            s=s+ "Longueur :" + std::to_string(get_longueur()) + "\0";
             s=s+ "Largeur :" + std::to_string(get_largeur()) + "\0";
             s=s+ "Prix :" + std::to_string(get_prix()) + "\0";
             s=s+ "Consomation électrique :" + std::to_string(get_conso_elec()) + "\0";
