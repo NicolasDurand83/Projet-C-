@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <typeinfo>
 #include "Ville.hh"
  
 
@@ -83,13 +84,12 @@ void Ville::erase(int i){
 
 void Ville::update_pop(){
     int hab=0,i;
-    for (i=0;i<(int)_batiments.size()-1;i++){
+    for (i=0;i<(int)_batiments.size();i++){
         if (typeid(_batiments[i])==typeid(Habitation)){
             hab=hab + _batiments[i].get_hab();
         }
     } 
     _population=hab;
-
 }
 
 void Ville::efficacite(){
@@ -147,6 +147,8 @@ std::string Ville::create_habitation(Habitation B, int x, int y){
     this->update();
     return "Le batiment a été construit";
 }
+
+
 std::string Ville::create_production_argent(Production_argent B, int x, int y){
     int i;
     Production_argent B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
@@ -165,6 +167,9 @@ std::string Ville::create_production_argent(Production_argent B, int x, int y){
     this->update();
     return "Le batiment a été construit";
 }
+
+
+
 std::string Ville::create_production_elec(Production_electricite B, int x, int y){
     int i;
     Production_electricite B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
@@ -183,6 +188,9 @@ std::string Ville::create_production_elec(Production_electricite B, int x, int y
     this->update();
     return "Le batiment a été construit";
 }
+
+
+
 std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
     int i;
     Gestion_dechet B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
@@ -201,3 +209,10 @@ std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
     this->update();
     return "Le batiment a été construit";
 }
+
+std::ostream& operator<<(std::ostream& os,const Ville &V){
+            os<<V._nom<<" : \n"<<"Pollution générée : "<<V._pollution<<" tonnes de CO2 sur les "<<V._limite_pollution<<" maximales autorisées.\n";
+            os<<"Population actuelle : "<<V._population<<"\nBudget restant : "<<V._argent<<"\nBilan électrique : "<<V._solde_electricite;
+            os<<"\nTaux d'emploi : "<<V._taux_d_emploi<<'\n';
+            return os;
+};

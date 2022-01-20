@@ -94,11 +94,15 @@ int main(){
     Production_argent centre_commercial(0,0,3,2,186,93,4790,"1",100,9000);
 
 
-    Ville EV("Ecoville",100,100000);
+    Ville EV("Ecoville",100,100000000);
     std::cout<<EV.create_habitation(maison,0,0)<<"\n";
 
     std::cout<<EV.create_habitation(maison,0,0)<<"\n"; 
 
     std::cout<<EV.create_habitation(maison,0,0)<<"\n"; 
+    EV.update();
+    EV.update_pop();
+    std::cout<<EV.create_production_elec(centrale_thermique,1,1);
+    std::cout<<EV;
     return 0;
 }

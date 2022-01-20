@@ -35,6 +35,8 @@ class Ville{
         std::string create_production_argent(Production_argent B, int x, int y);
         std::string create_production_elec(Production_electricite B, int x, int y);
         std::string create_dechet(Gestion_dechet B, int x, int y);
+        friend std::ostream& operator<<(std::ostream& os,const Ville &V);
+        
     private:
         std::vector<Batiment>  _batiments;
         std::string _nom;
