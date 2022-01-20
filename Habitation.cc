@@ -24,18 +24,6 @@ Habitation::Habitation(int x,int y,int longueur,int largeur,int prix,int conso_e
       
 }
 
-Habitation::Habitation(Habitation &B){
-      _x=B.get_x();
-      _y=B.get_y();
-      _longueur=B.get_longueur();
-      _largeur=B.get_largeur();
-      _prix=B.get_prix();
-      _conso_elect=B.get_conso_elec();
-      _pollution=B.get_pollution();
-      _image=B.get_image();
-      _nb_habitant=B.get_hab();
-      _dechet=B.get_dechet();
-};
 std::string Habitation::info(){
             std::string s="";
             

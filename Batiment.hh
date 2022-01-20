@@ -19,11 +19,11 @@ class Batiment{
         int get_conso_elec(){return _conso_elect;}
         int get_pollution(){return _pollution;}
         std::string get_image(){return _image;}
-        virtual std::string info()=0;
-        virtual int get_dechet();
-        virtual int get_production_max();
-        virtual int get_hab();
-        virtual int get_ouvrier_max();
+        virtual std::string info(){return "";};
+        virtual int get_dechet(){return 0;};
+        virtual int get_production_max(){return 0;};
+        virtual int get_hab(){return 0;};
+        virtual int get_ouvrier_max(){return 0;};
 
     protected:
         int _x;
