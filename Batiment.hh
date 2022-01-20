@@ -20,8 +20,11 @@ class Batiment{
         int get_pollution(){return _pollution;}
         std::string get_image(){return _image;}
         virtual std::string info()=0;
-        virtual int get_production()=0;
         virtual int get_dechet()=0;
+        virtual int get_production_max()=0;
+        virtual int get_hab()=0;
+        virtual int get_ouvrier_max()=0;
+
     protected:
         int _x;
         int _y;
@@ -30,7 +33,5 @@ class Batiment{
         int _prix;
         int _conso_elect;
         int _pollution;
-        std::string _image; 
-        int _id;
-        static int unique_id;     
+        std::string _image;   
 };

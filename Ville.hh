@@ -10,34 +10,38 @@
 class Ville{
     public:
         Ville(){_nom="firas";};
-        Ville(std::string nom,int limite_pollution,int argent):
+        Ville(std::string nom,int limite_pollution,float argent):
                 _nom(nom),_limite_pollution(limite_pollution),_argent(argent)
             {
                 _pollution=0;
                 _solde_electricite=0;
             };
-        int get_pollution(){return _pollution;}
+        float get_pollution(){return _pollution;}
         std::string get_name(){return _nom;};
         void set_name(std::string s){_nom=s;};
-        int get_argent(){return _argent;};
-        
+        float get_argent(){return _argent;};
+        int get_pop(){return _population;};
+        void update_pop();
         std::string check_pollution();
         std::string check_electricite();
         std::string check_dechet();
         int get_revenue();
         template<typename T>
-        std::string create_batiment(T& B, int x, int y);
+        std::string create_batiment(T B, int x, int y);
         std::string delete_batiment(int x, int y);
         void erase(int i);
         void update();
+        void efficacite();
 
 
     private:
         std::vector<Batiment>  _batiments;
         std::string _nom;
-        int _limite_pollution;
-        int _argent;
-        int _pollution;
-        int _solde_electricite;
-        int _taux_d_emploi;
+        float _limite_pollution;
+        float _argent;
+        float _taux_d_emploi;
+        float _pollution;
+        float _solde_electricite;
+        int _population;
+
 };

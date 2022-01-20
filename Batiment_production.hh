@@ -22,13 +22,10 @@ class Batiment_production: public Batiment{
                 };
         ~Batiment_production();*/
         int get_ouvrier_max(){return _ouvrier_max;};
-        int get_ouvrier(){return _nb_ouvrier;};
-        int get_production(){return _production;};
         int get_production_max(){return _production_max;};
         int get_dechet(){return 0;}
+        int get_hab(){return 0;}
     protected:
         int _ouvrier_max;
-        int _nb_ouvrier;
         int _production_max;
-        int _production;
 };

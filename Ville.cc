@@ -26,7 +26,7 @@ std::string Ville::check_electricite(){
     for (i=0;i<(int)_batiments.size();i++){
         elec=elec - _batiments[i].get_conso_elec();
         if (typeid(_batiments[i])==typeid(Production_electricite)){
-            elec=elec + _batiments[i].get_production();
+            elec=elec + _batiments[i].get_production_max()*_taux_d_emploi;
         }
     };
     _solde_electricite=elec;
@@ -44,7 +44,7 @@ std::string Ville::check_dechet(){
     int i;
     for (i=0;i<(int)_batiments.size();i++){
         if (typeid(_batiments[i])==typeid(Gestion_dechet)){
-            solde_dechet=solde_dechet + _batiments[i].get_production();
+            solde_dechet=solde_dechet + _batiments[i].get_production_max()*_taux_d_emploi;
         }
         if (typeid(_batiments[i])==typeid(Habitation)){
             solde_dechet=solde_dechet - _batiments[i].get_dechet();
@@ -65,18 +65,19 @@ int Ville::get_revenue(){
     int i;
     for (i=0;i<(int)_batiments.size();i++){
         if (typeid(_batiments[i])==typeid(Production_argent)){
-            cash=cash + _batiments[i].get_production();
+            cash=cash + _batiments[i].get_production_max()*_taux_d_emploi;
         }
     };
     return cash;
 }
 template<typename T>
-std::string Ville::create_batiment(T& B, int x, int y){
+std::string Ville::create_batiment(T B, int x, int y){
     int i;
-    B.set_x(x);B.set_y(y);
+    
     if (B.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
+    B.set_x(x);B.set_y(y);
     for (i=0;i<_batiments.size();i++){
         if ((B.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B.get_x()+B.get_largeur()>_batiments[i].get_x()) && (B.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B.get_y() + B.get_longueur()< _batiments[i].get_y() ))
         {
@@ -94,6 +95,27 @@ void Ville::erase(int i){
         _batiments[j]=_batiments[i+1];
     }
     _batiments.pop_back();
+}
+
+void Ville::update_pop(){
+    int hab=0,i;
+    for (i=0;i<(int)_batiments.size()-1;i++){
+        if (typeid(_batiments[i])==typeid(Habitation)){
+            hab=hab + _batiments[i].get_hab();
+        }
+    } 
+    _population=hab;
+
+}
+
+void Ville::efficacite(){
+    int ouvrier=0,i;
+    for (i=0;i<(int)_batiments.size()-1;i++){
+        if (typeid(_batiments[i])==typeid(Batiment_production)){
+            ouvrier=ouvrier + _batiments[i].get_ouvrier_max();
+        }
+    } 
+    _taux_d_emploi=(_population*1.0)/ouvrier;
 }
 
 std::string Ville::delete_batiment(int x, int y){
@@ -114,6 +136,8 @@ std::string Ville::delete_batiment(int x, int y){
 
 
 void Ville::update(){
+    this->update_pop();
+    this->efficacite();
     this->check_pollution();
     this->check_electricite();
     this->check_dechet();
