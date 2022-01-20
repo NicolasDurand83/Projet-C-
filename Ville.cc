@@ -122,10 +122,9 @@ std::string Ville::delete_batiment(int x, int y){
 void Ville::update(){
     this->update_pop();
     this->efficacite();
-    this->check_pollution();
-    this->check_electricite();
-    this->check_dechet();
     this->_argent+=this->get_revenue();
+    std::cout<<this->check_pollution()<<'\n'<<this->check_electricite()<<'\n'<<this->check_dechet()<<'\n';
+
 }
 
 
@@ -145,6 +144,7 @@ std::string Ville::create_habitation(Habitation B, int x, int y){
     };
     _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
+    this->update();
     return "Le batiment a été construit";
 }
 std::string Ville::create_production_argent(Production_argent B, int x, int y){
@@ -160,7 +160,9 @@ std::string Ville::create_production_argent(Production_argent B, int x, int y){
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
+    this->update();
     return "Le batiment a été construit";
 }
 std::string Ville::create_production_elec(Production_electricite B, int x, int y){
@@ -176,7 +178,9 @@ std::string Ville::create_production_elec(Production_electricite B, int x, int y
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
+    this->update();
     return "Le batiment a été construit";
 }
 std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
@@ -192,6 +196,8 @@ std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
+    this->update();
     return "Le batiment a été construit";
 }
