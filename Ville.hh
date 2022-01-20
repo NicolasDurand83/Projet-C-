@@ -26,14 +26,15 @@ class Ville{
         std::string check_electricite();
         std::string check_dechet();
         int get_revenue();
-        template<typename T>
-        std::string create_batiment(T B, int x, int y);
+       
         std::string delete_batiment(int x, int y);
         void erase(int i);
         void update();
         void efficacite();
-
-
+        std::string create_habitation(Habitation B, int x, int y);
+        std::string create_production_argent(Production_argent B, int x, int y);
+        std::string create_production_elec(Production_electricite B, int x, int y);
+        std::string create_dechet(Gestion_dechet B, int x, int y);
     private:
         std::vector<Batiment>  _batiments;
         std::string _nom;

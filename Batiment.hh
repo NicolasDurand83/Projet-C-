@@ -20,10 +20,10 @@ class Batiment{
         int get_pollution(){return _pollution;}
         std::string get_image(){return _image;}
         virtual std::string info()=0;
-        virtual int get_dechet()=0;
-        virtual int get_production_max()=0;
-        virtual int get_hab()=0;
-        virtual int get_ouvrier_max()=0;
+        virtual int get_dechet();
+        virtual int get_production_max();
+        virtual int get_hab();
+        virtual int get_ouvrier_max();
 
     protected:
         int _x;

@@ -95,7 +95,6 @@ int main(){
 
 
     Ville EV("Ecoville",100000,100000);
-    std::string a =EV.create_batiment(maison,0,0);
-    std::cout<<a<<"\n";
+    std::cout<<EV.create_habitation(maison,0,0)<<"\n";
     return 0;
 }

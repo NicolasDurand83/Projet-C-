@@ -70,24 +70,8 @@ int Ville::get_revenue(){
     };
     return cash;
 }
-template<typename T>
-std::string Ville::create_batiment(T B, int x, int y){
-    int i;
-    
-    if (B.get_prix()>_argent){
-        return "Vous n'avez pas assez d'argent pour construire ce batiment";
-    }
-    B.set_x(x);B.set_y(y);
-    for (i=0;i<_batiments.size();i++){
-        if ((B.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B.get_x()+B.get_largeur()>_batiments[i].get_x()) && (B.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B.get_y() + B.get_longueur()< _batiments[i].get_y() ))
-        {
-            return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
-        }
-    };
-    (this->_batiments).push_back(B);
-    return "Le batiment a été construit";
-    
-}
+
+
 
 void Ville::erase(int i){
     int j;
@@ -142,4 +126,71 @@ void Ville::update(){
     this->check_electricite();
     this->check_dechet();
     this->_argent+=this->get_revenue();
+}
+
+
+
+std::string Ville::create_habitation(Habitation B, int x, int y){
+    int i;
+    Habitation B_copy(B);
+    if (B_copy.get_prix()>_argent){
+        return "Vous n'avez pas assez d'argent pour construire ce batiment";
+    }
+    B_copy.set_x(x);B_copy.set_y(y);
+    for (i=0;i<(int)_batiments.size();i++){
+        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        {
+            return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
+        }
+    };
+    (this->_batiments).push_back(B_copy);
+    return "Le batiment a été construit";
+}
+std::string Ville::create_production_argent(Production_argent B, int x, int y){
+    int i;
+    Production_argent B_copy(B);
+    if (B_copy.get_prix()>_argent){
+        return "Vous n'avez pas assez d'argent pour construire ce batiment";
+    }
+    B_copy.set_x(x);B_copy.set_y(y);
+    for (i=0;i<(int)_batiments.size();i++){
+        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        {
+            return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
+        }
+    };
+    (this->_batiments).push_back(B_copy);
+    return "Le batiment a été construit";
+}
+std::string Ville::create_production_elec(Production_electricite B, int x, int y){
+    int i;
+    Production_electricite B_copy(B);
+    if (B_copy.get_prix()>_argent){
+        return "Vous n'avez pas assez d'argent pour construire ce batiment";
+    }
+    B_copy.set_x(x);B_copy.set_y(y);
+    for (i=0;i<(int)_batiments.size();i++){
+        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        {
+            return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
+        }
+    };
+    (this->_batiments).push_back(B_copy);
+    return "Le batiment a été construit";
+}
+std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
+    int i;
+    Gestion_dechet B_copy(B);
+    if (B_copy.get_prix()>_argent){
+        return "Vous n'avez pas assez d'argent pour construire ce batiment";
+    }
+    B_copy.set_x(x);B_copy.set_y(y);
+    for (i=0;i<(int)_batiments.size();i++){
+        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        {
+            return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
+        }
+    };
+    (this->_batiments).push_back(B_copy);
+    return "Le batiment a été construit";
 }
