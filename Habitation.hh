@@ -11,7 +11,8 @@
 class Habitation: public Batiment{
     public:
         Habitation();
-        Habitation(int x,int y,int longueur,int largeur,int prix,int conso_elec,int pollution,std::string image,int nb_habitant,int dechet);
+        Habitation(int x,int y,
+        int prix,int conso_elec,int pollution,std::string image,int nb_habitant,int dechet);
         std::string info();
         int get_hab(){return _nb_habitant;};
         int get_dechet(){return _dechet;};

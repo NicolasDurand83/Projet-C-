@@ -6,6 +6,7 @@
 #include "Ville.hh"
  
 
+
 std::string Ville::check_pollution(){
     int pol=0;
     int i;
@@ -21,17 +22,17 @@ std::string Ville::check_pollution(){
         return "La ville est en dessous du seuil de pollution"; 
     }
 }
+int elec=0;
 std::string Ville::check_electricite(){
-    int elec=0;
+    _solde_electricite=0;
     int i;
     for (i=0;i<(int)_batiments.size();i++){
-        elec=elec - _batiments[i].get_conso_elec();
-        if (typeid(_batiments[i])==typeid(Production_electricite)){
-            elec=elec + _batiments[i].get_production_max()*_taux_d_emploi;
-        }
+        _solde_electricite=_solde_electricite - _batiments[i].get_conso_elec();
+        if ((_batiments[i].get_type()).compare("electricite")==0){
+            _solde_electricite=_solde_electricite + _batiments[i].get_production_max()*_taux_d_emploi;
+        };
     };
-    _solde_electricite=elec;
-    if (elec<0){
+    if (_solde_electricite<0){
 //      La ville est en déficit énergétique. Cela entraine des malus.        
         return "La ville ne produit pas assez d'electricité";
     }
@@ -44,10 +45,10 @@ std::string Ville::check_dechet(){
     int solde_dechet=0;
     int i;
     for (i=0;i<(int)_batiments.size();i++){
-        if (typeid(_batiments[i])==typeid(Gestion_dechet)){
+        if ((_batiments[i].get_type()).compare("dechet")==0){
             solde_dechet=solde_dechet + _batiments[i].get_production_max()*_taux_d_emploi;
         }
-        if (typeid(_batiments[i])==typeid(Habitation)){
+        if ((_batiments[i].get_type()).compare("habitation")==0){
             solde_dechet=solde_dechet - _batiments[i].get_dechet();
         }
     };
@@ -65,7 +66,7 @@ int Ville::get_revenue(){
     int cash=0;
     int i;
     for (i=0;i<(int)_batiments.size();i++){
-        if (typeid(_batiments[i])==typeid(Production_argent)){
+        if ((_batiments[i].get_type()).compare("argent")==0){
             cash=cash + _batiments[i].get_production_max()*_taux_d_emploi;
         }
     };
@@ -74,54 +75,28 @@ int Ville::get_revenue(){
 
 
 
-void Ville::erase(int i){
-    int j;
-    for (j=i;j<(int)_batiments.size()-1;j++){
-        _batiments[j]=_batiments[i+1];
-    }
-    _batiments.pop_back();
-}
 
-void Ville::update_pop(){
-    int hab=0,i;
-    for (i=0;i<(int)_batiments.size();i++){
-        if (typeid(_batiments[i])==typeid(Habitation)){
-            hab=hab + _batiments[i].get_hab();
-        }
-    } 
-    _population=hab;
-}
 
-void Ville::efficacite(){
-    int ouvrier=0,i;
-    for (i=0;i<(int)_batiments.size()-1;i++){
-        if (typeid(_batiments[i])==typeid(Batiment_production)){
-            ouvrier=ouvrier + _batiments[i].get_ouvrier_max();
-        }
-    } 
-    _taux_d_emploi=(_population*1.0)/ouvrier;
-}
+
 
 std::string Ville::delete_batiment(int x, int y){
     int i;
-    int tempx,tempy,templong,templarg;
     for (i=0;(int)_batiments.size();i++){
-        tempx=_batiments[i].get_x();
-        tempy=_batiments[i].get_y();
-        templong=_batiments[i].get_longueur();
-        templarg=_batiments[i].get_largeur();
-        if (tempx>=x && tempy>=y && x<=tempx+templong && y<=tempy +templarg){
-            erase(i);
-            return "Batiment supprimé";
+        if (_batiments[i].get_x()==x && _batiments[i].get_y()==y){
+            if ((_batiments[i].get_type()).compare("habitation")==0){_population=_population-_batiments[i].get_hab();}
+            else{_nb_emploi=-_nb_emploi-_batiments[i].get_ouvrier_max();}
+            _batiments.erase(_batiments.begin()+i);
+            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
+            this->update();
+            return "Batiment supprimé '\n";
         }
     }
-    return "Il n'y a pas de batiment ici";
+    return "Il n'y a pas de batiment ici'\n";
 }
 
 
 void Ville::update(){
-    this->update_pop();
-    this->efficacite();
+    _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);;
     this->_argent+=this->get_revenue();
     std::cout<<this->check_pollution()<<'\n'<<this->check_electricite()<<'\n'<<this->check_dechet()<<'\n';
 
@@ -131,17 +106,19 @@ void Ville::update(){
 
 std::string Ville::create_habitation(Habitation B, int x, int y){
     int i;
-    Habitation B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_hab(),B.get_dechet());
+    Habitation B_copy(B.get_x(),B.get_y(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_hab(),B.get_dechet());
     if (B_copy.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
     B_copy.set_x(x);B_copy.set_y(y);
     for (i=0;i<(int)_batiments.size();i++){
-        if ((B_copy.get_x() <= _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>=_batiments[i].get_x()) && (B_copy.get_y() >= _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()<= _batiments[i].get_y() ))
+        if (_batiments[i].get_x()==x &&_batiments[i].get_y()==y)
         {
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
+    _population=_population+B_copy.get_hab();
     _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
     this->update();
@@ -151,17 +128,19 @@ std::string Ville::create_habitation(Habitation B, int x, int y){
 
 std::string Ville::create_production_argent(Production_argent B, int x, int y){
     int i;
-    Production_argent B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
+    Production_argent B_copy(B.get_x(),B.get_y(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
     if (B_copy.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
     B_copy.set_x(x);B_copy.set_y(y);
     for (i=0;i<(int)_batiments.size();i++){
-        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        if (_batiments[i].get_x()==x &&_batiments[i].get_y()==y)
         {
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _nb_emploi=_nb_emploi+B_copy.get_ouvrier_max();
+    _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
     _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
     this->update();
@@ -172,18 +151,20 @@ std::string Ville::create_production_argent(Production_argent B, int x, int y){
 
 std::string Ville::create_production_elec(Production_electricite B, int x, int y){
     int i;
-    Production_electricite B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
+    Production_electricite B_copy(B.get_x(),B.get_y(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
     if (B_copy.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
     B_copy.set_x(x);B_copy.set_y(y);
     for (i=0;i<(int)_batiments.size();i++){
-        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        if (_batiments[i].get_x()==x &&_batiments[i].get_y()==y)
         {
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
-    _argent=_argent-B.get_prix();
+    _nb_emploi=_nb_emploi+B_copy.get_ouvrier_max();
+    _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
+    _argent=_argent-B_copy.get_prix();
     (this->_batiments).push_back(B_copy);
     this->update();
     return "Le batiment a été construit";
@@ -193,17 +174,19 @@ std::string Ville::create_production_elec(Production_electricite B, int x, int y
 
 std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
     int i;
-    Gestion_dechet B_copy(B.get_x(),B.get_y(),B.get_longueur(),B.get_largeur(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
+    Gestion_dechet B_copy(B.get_x(),B.get_y(),B.get_prix(),B.get_conso_elec(),B.get_pollution(),B.get_image(),B.get_ouvrier_max(),B.get_production_max());
     if (B_copy.get_prix()>_argent){
         return "Vous n'avez pas assez d'argent pour construire ce batiment";
     }
     B_copy.set_x(x);B_copy.set_y(y);
     for (i=0;i<(int)_batiments.size();i++){
-        if ((B_copy.get_x() < _batiments[i].get_x() +_batiments[i].get_largeur()) && ( B_copy.get_x()+B_copy.get_largeur()>_batiments[i].get_x()) && (B_copy.get_y() > _batiments[i].get_y() +_batiments[i].get_longueur()) && (B_copy.get_y() + B_copy.get_longueur()< _batiments[i].get_y() ))
+        if (_batiments[i].get_x()==x &&_batiments[i].get_y()==y)
         {
             return "Impossible de construire ce bâtiment sur un autre bâtiment existant";
         }
     };
+    _nb_emploi=_nb_emploi+B_copy.get_ouvrier_max();
+    _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
     _argent=_argent-B.get_prix();
     (this->_batiments).push_back(B_copy);
     this->update();
@@ -213,6 +196,6 @@ std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
 std::ostream& operator<<(std::ostream& os,const Ville &V){
             os<<V._nom<<" : \n"<<"Pollution générée : "<<V._pollution<<" tonnes de CO2 sur les "<<V._limite_pollution<<" maximales autorisées.\n";
             os<<"Population actuelle : "<<V._population<<"\nBudget restant : "<<V._argent<<"\nBilan électrique : "<<V._solde_electricite;
-            os<<"\nTaux d'emploi : "<<V._taux_d_emploi<<'\n';
+            os<<"\nNombres d'emplois max : "<<V._nb_emploi<<"\nTaux d'emploi : "<<V._taux_d_emploi<<'\n';
             return os;
 };

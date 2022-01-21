@@ -15,6 +15,8 @@ class Ville{
             {
                 _pollution=0;
                 _solde_electricite=0;
+                _population=0;
+                _taux_d_emploi=0;
             };
         float get_pollution(){return _pollution;}
         std::string get_name(){return _nom;};
@@ -30,7 +32,7 @@ class Ville{
         std::string delete_batiment(int x, int y);
         void erase(int i);
         void update();
-        void efficacite();
+    
         std::string create_habitation(Habitation B, int x, int y);
         std::string create_production_argent(Production_argent B, int x, int y);
         std::string create_production_elec(Production_electricite B, int x, int y);
@@ -43,6 +45,7 @@ class Ville{
         float _limite_pollution;
         float _argent;
         float _taux_d_emploi;
+        float _nb_emploi;
         float _pollution;
         float _solde_electricite;
         int _population;
