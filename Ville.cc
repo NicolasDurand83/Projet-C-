@@ -107,66 +107,38 @@ int Ville::get_revenue(){
     }
     return cash;
 }
-
-
-
-
-
-
-
-std::string Ville::delete_batiment(int x, int y){
-    int i;
-    /*for (i=0;(int)_batiments.size();i++){
-        if (_batiments[i].get_x()==x && _batiments[i].get_y()==y){
-            if ((_batiments[i].get_type()).compare("habitation")==0){_population=_population-_batiments[i].get_hab();}
-            else{_nb_emploi=-_nb_emploi-_batiments[i].get_ouvrier_max();}
-            _batiments.erase(_batiments.begin()+i);
-            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
-            update();
-            return "Batiment supprimé '\n";
-        }
-    }*/
-    for (i=0;(int)_habitation.size();i++){
+int effacer=0;//si effacer =1 donc on a effacer le batiment
+std::string Ville::delete_batiment(int x, int y){  
+    int effacer=0;//si effacer =1 donc on a effacer le batiment    
+    for (int i=0;(int)_habitation.size();i++){
         if (_habitation[i].get_x()==x && _habitation[i].get_y()==y){
-            if ((_habitation[i].get_type()).compare("habitation")==0){_population=_population-_habitation[i].get_hab();}
-            else{_nb_emploi=-_nb_emploi-_habitation[i].get_ouvrier_max();}
-            _habitation.erase(_habitation.begin()+i);
-            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
-            update();
-            return "Batiment supprimé '\n";
+            _population=_population-_habitation[i].get_hab();
+            _habitation.erase(_habitation.begin()+i);    
         }
     }
-    for (i=0;(int)_Gestion_dechet.size();i++){
+    for (int i=0;(int)_Gestion_dechet.size();i++){
         if (_Gestion_dechet[i].get_x()==x && _Gestion_dechet[i].get_y()==y){
-            if ((_Gestion_dechet[i].get_type()).compare("habitation")==0){_population=_population-_Gestion_dechet[i].get_hab();}
-            else{_nb_emploi=-_nb_emploi-_Gestion_dechet[i].get_ouvrier_max();}
+            _nb_emploi=-_nb_emploi-_Gestion_dechet[i].get_ouvrier_max();
             _Gestion_dechet.erase(_Gestion_dechet.begin()+i);
-            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
-            update();
-            return "Batiment supprimé '\n";
         }
     }  
-    for (i=0;(int)_production_electricite.size();i++){
+    for (int i=0;(int)_production_electricite.size();i++){
         if (_production_electricite[i].get_x()==x && _production_electricite[i].get_y()==y){
-            if ((_production_electricite[i].get_type()).compare("habitation")==0){_population=_population-_production_electricite[i].get_hab();}
-            else{_nb_emploi=-_nb_emploi-_production_electricite[i].get_ouvrier_max();}
+            _nb_emploi=-_nb_emploi-_production_electricite[i].get_ouvrier_max();
             _production_electricite.erase(_production_electricite.begin()+i);
-            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
-            update();
-            return "Batiment supprimé '\n";
         }
     }  
-    for (i=0;(int)_production_argent.size();i++){
+    for (int i=0;(int)_production_argent.size();i++){
         if (_production_argent[i].get_x()==x && _production_argent[i].get_y()==y){
-            if ((_production_argent[i].get_type()).compare("habitation")==0){_population=_population-_production_argent[i].get_hab();}
-            else{_nb_emploi=-_nb_emploi-_production_argent[i].get_ouvrier_max();}
+            _nb_emploi=-_nb_emploi-_production_argent[i].get_ouvrier_max();
             _production_argent.erase(_production_argent.begin()+i);
-            _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
-            update();
-            return "Batiment supprimé '\n";
         }
     }  
-   
+    if (effacer==1){
+        _taux_d_emploi=std::min((_population*1.0)/_nb_emploi,1.0);
+        update();
+        return "Batiment supprimé '\n";
+    }
     return "Il n'y a pas de batiment ici'\n";
 }
 
@@ -177,8 +149,6 @@ void Ville::update(){
     std::cout<<check_pollution()<<'\n'<<check_electricite()<<'\n'<<check_dechet()<<'\n';
 
 }
-
-
 
 std::string Ville::create_habitation(Habitation B, int x, int y){
     int i;
@@ -268,8 +238,7 @@ std::string Ville::create_production_elec(Production_electricite B, int x, int y
     this->update();
     return "Le batiment a été construit";
 }
-
-
+  
 
 std::string Ville::create_dechet(Gestion_dechet B, int x, int y){
     int i;
