@@ -41,6 +41,11 @@ class Ville{
         
     private:
         std::vector<Batiment>  _batiments;
+        std::vector<Habitation> _habitation;
+        std::vector<Gestion_dechet> _Gestion_dechet;
+        std::vector<Production_electricite> _production_electricite;
+        
+        std::vector<Production_argent> _production_argent;
         std::string _nom;
         float _limite_pollution;
         float _argent;

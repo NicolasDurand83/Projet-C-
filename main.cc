@@ -95,16 +95,17 @@ int main(){
 
 
     Ville EV("Ecoville",100,1000000);
-    std::cout<<EV.create_habitation(maison,0,0)<<"\n";
-    std::cout<<EV.get_argent();
-    std::cout<<EV.create_habitation(maison,0,1)<<"\n";
-    std::cout<<EV.get_argent();
-    std::cout<<EV.create_production_elec(centrale_thermique,1,0)<<'\n';
-    std::cout<<EV.create_dechet(dechetterrie,2,0)<<'\n';
-    std::cout<<EV.create_production_argent(magasin,3,0)<<'\n';
+    /*std::cout<<*/EV.create_habitation(maison,0,0);//<<"\n";
+    //std::cout<<EV.get_argent()<<std::endl;
+    /*std::cout<<*/EV.create_habitation(maison,1,1);//<<"\n";
+    //std::cout<<EV.get_argent()<<std::endl;
+    //std::cout<<EV.create_habitation(maison,0,1)<<"\n";
+    //std::cout<<EV.get_argent();
+    //std::cout<<EV.create_production_elec(centrale_thermique,1,0)<<'\n';
+    //std::cout<<EV.create_dechet(dechetterrie,2,0)<<'\n';
+    //std::cout<<EV.create_production_argent(magasin,3,0)<<'\n';
     EV.update();
-
-    /*
+        /*
     std::cout<<EV.create_habitation(maison,0,0)<<"\n"; 
 
     std::cout<<EV.create_habitation(maison,0,0)<<"\n"; 
