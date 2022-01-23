@@ -26,7 +26,7 @@ MaFenetre::MaFenetre() :QWidget(){
        layout_achat->addWidget(bouton1, 0, 0);
        layout_achat->addWidget(bouton2, 0, 1);
        layout_achat->addWidget(bouton3, 1, 0,1,2);
-       connect(bouton1,SIGNAL(clicked()),this,donner(1,1));
+       connect(bouton1,SIGNAL(clicked()),this,SLOT(donner(1,1)));
        QPushButton *mapp[10][10];
        for(int i=0;i<10;i++){
            for(int j=0;j<10;j++){

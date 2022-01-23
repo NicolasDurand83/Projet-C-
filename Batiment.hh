@@ -18,11 +18,10 @@ class Batiment{
         std::string get_image(){return _image;}
         std::string get_type(){return _type;};
         virtual std::string info(){return "";};
-        virtual int get_dechet(){return 0;};
-        virtual int get_production_max(){return 0;};
         virtual int get_hab(){return 0;};
         virtual int get_ouvrier_max(){return 0;};
 
+        bool operator==(Batiment b){return b.get_image()==_image;}
 
     protected:
         int _x;
