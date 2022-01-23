@@ -21,7 +21,7 @@ class Batiment{
         virtual int get_hab(){return 0;};
         virtual int get_ouvrier_max(){return 0;};
 
-        bool operator==(Batiment b){return b.get_image()==_image;}
+        bool operator==(Batiment b){return b.get_image()==_image;} // Voir si les deux batiments construit viennent du même objet (ex: maison (voir main.cc))
 
     protected:
         int _x;
